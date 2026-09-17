@@ -1,0 +1,47 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<!-- Full regression suite. Run: mvn clean test -->
+<suite name="mb.io Regression Suite">
+
+    <test name="Navigation and Layout">
+        <classes>
+            <class name="com.mbio.tests.navigation.NavigationTest"/>
+        </classes>
+    </test>
+
+    <test name="Trading Functionality">
+        <classes>
+            <class name="com.mbio.tests.trading.ExploreSpotMarketTest"/>
+        </classes>
+    </test>
+
+    <test name="Content and Links">
+        <classes>
+            <class name="com.mbio.tests.content.BannerTest"/>
+            <class name="com.mbio.tests.content.AppDownloadLinkTest"/>
+            <class name="com.mbio.tests.content.WhyMultiBankTest"/>
+        </classes>
+    </test>
+
+    <test name="Negative and Edge Cases">
+        <groups>
+            <run>
+                <!-- Known defects are excluded from the normal run. See README, "Findings on the live site". -->
+                <exclude name="known-issue"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.mbio.tests.negative.InvalidRouteTest"/>
+            <class name="com.mbio.tests.negative.BrokenLinkTest"/>
+        </classes>
+    </test>
+
+    <test name="API">
+        <classes>
+            <class name="com.mbio.tests.api.PageStatusApiTest"/>
+            <class name="com.mbio.tests.api.AppLinkRedirectApiTest"/>
+            <class name="com.mbio.tests.api.MarketDataApiTest"/>
+            <class name="com.mbio.tests.api.MarketWidgetApiTest"/>
+        </classes>
+    </test>
+
+</suite>

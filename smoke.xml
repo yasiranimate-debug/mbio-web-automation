@@ -1,0 +1,20 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<!-- Smoke suite: only tests in the "smoke" group. Run: mvn clean test -Dsuite=smoke.xml -->
+<suite name="mb.io Smoke Suite">
+
+    <test name="Smoke">
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+        <!--
+            Every test class is picked up from these packages ("*" also covers the sub packages
+            navigation, trading, content, negative and api). Only the group above decides what runs,
+            so adding "smoke" to a @Test is enough - this file does not need to be changed.
+        -->
+        <packages>
+            <package name="com.mbio.tests.*"/>
+        </packages>
+    </test>
+</suite>

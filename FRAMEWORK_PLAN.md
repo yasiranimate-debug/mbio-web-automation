@@ -333,6 +333,14 @@ in the report add up to the number of tests that ran.
   TC_TRD_008: the API returns the Losers list as the exact reverse of Gainers.
 * **Login redirects keep only the first path segment.** `/wallet/spot/overview` sends a guest to
   `/login?next=/wallet`, so after logging in the user does not return to the page they asked for.
+* **The site chooses the locale from the visitor's IP address, and it cannot be overridden.** From the UAE
+  every page is served under `/en-AE`; the same path requested from another country answers **307** and
+  redirects to that region's locale. A `NEXT_LOCALE` cookie makes no difference, and from the UAE every
+  other locale path (`/en-US`, `/en-GB`, `/en`) also redirects back to `/en-AE`.
+  This was found by the first CI run: 11 of 37 checks failed on GitHub's runners purely because the tests
+  expected `/en-AE`. URLs are therefore matched on the part after the locale - `.../company` rather than the
+  whole address - and the page status test follows redirects unless the redirect itself is what it checks.
+  The suite now runs from any country, which is what makes CI meaningful.
 * **Heading capitalisation is not stable.** The Blog page heading was read as "Blog and News" at 17:40 and
   "Blog and news" at 17:51 on 17 September 2026 - two runs 11 minutes apart. Page headings are therefore
   compared with `AssertUtils.verifyEqualsIgnoreCase`: the words must match exactly, only upper / lower case

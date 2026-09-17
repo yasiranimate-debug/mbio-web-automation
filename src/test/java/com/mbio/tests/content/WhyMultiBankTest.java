@@ -36,7 +36,7 @@ public class WhyMultiBankTest extends BaseTest {
         // This test must start on the home page, because it checks the way IN to the Company page
         homePage.open();
         homePage.getHeader().clickNavItem("Company");
-        homePage.waitForUrlContains("/en-AE/company");
+        homePage.waitForUrlContains("/company");
 
         AssertUtils.verifyTrue(companyPage.isHeadingDisplayed(), "heading 'Why MultiBank Group?' is visible");
         companyPage.waitForTitleContains("About mb.io");

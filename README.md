@@ -169,6 +169,11 @@ artifact: `extent-report-chrome` and `extent-report-firefox`.
 
 ## Findings on the live site
 
+* **The locale comes from the visitor's IP and cannot be overridden.** From the UAE the site serves
+  `/en-AE`; the same path from another country returns **307** and redirects to that region's locale.
+  Tests therefore match the part of the URL after the locale (`.../company`), so the suite runs from any
+  country - including CI, which runs outside the UAE.
+
 * `trade.mb.io/` redirects guests to `/login`. The public pages used are `mb.io/en-AE/` (marketing site),
   `trade.mb.io/markets` and `trade.mb.io/trade/<COIN>`.
 * "About Us > Why MultiBank" is currently the **Company** menu item (`/en-AE/company`).

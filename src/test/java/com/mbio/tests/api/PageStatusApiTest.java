@@ -13,7 +13,16 @@ public class PageStatusApiTest extends BaseApiTest {
             groups = {"smoke", "regression", "api"},
             description = "TC_API_001 Verify page returns expected HTTP status")
     public void verifyPageReturnsExpectedStatus(String url, String expectedStatus, String expectedLocationContains) {
-        Response response = ApiUtils.getWithoutRedirect(url);
+        Response response;
+        if (expectedLocationContains.isEmpty()) {
+            // The status of the page itself is what matters, so redirects are followed.
+            // mb.io sends a 307 to the visitor's own locale when the request comes from another country,
+            // which would otherwise fail everywhere except the UAE.
+            response = ApiUtils.get(url);
+        } else {
+            // The redirect itself is what is being checked, so it is not followed
+            response = ApiUtils.getWithoutRedirect(url);
+        }
 
         AssertUtils.verifyEquals(response.getStatusCode(), Integer.parseInt(expectedStatus), "HTTP status of " + url);
         if (!expectedLocationContains.isEmpty()) {

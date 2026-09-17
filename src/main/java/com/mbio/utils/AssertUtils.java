@@ -57,6 +57,21 @@ public final class AssertUtils {
         ExtentLogger.pass("Verified " + description + " : " + actual);
     }
 
+    /**
+     * Checks the end of a value. Used for page URLs.
+     *
+     * mb.io chooses the locale from the visitor's IP address and cannot be told to use another one:
+     * from the UAE every page is served under /en-AE, and from elsewhere - a CI runner, for example -
+     * the same path is answered with a 307 to that region's locale. The part after the locale is what
+     * the test cares about, so the URL is matched on its ending: ".../company", not the whole address.
+     */
+    public static void verifyEndsWith(String actual, String expectedEnd, String description) {
+        Assert.assertNotNull(actual, description + " should not be null");
+        Assert.assertTrue(actual.endsWith(expectedEnd),
+                description + " - expected to end with [" + expectedEnd + "] but was [" + actual + "]");
+        ExtentLogger.pass("Verified " + description + " : " + actual);
+    }
+
     public static void verifyStartsWith(String actual, String expectedStart, String description) {
         Assert.assertNotNull(actual, description + " should not be null");
         Assert.assertTrue(actual.startsWith(expectedStart),

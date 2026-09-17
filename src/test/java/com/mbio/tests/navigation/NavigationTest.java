@@ -57,7 +57,7 @@ public class NavigationTest extends BaseTest {
         header.clickNavItem(menuItem);
         homePage.waitForUrlContains(expectedUrl);
 
-        AssertUtils.verifyEquals(homePage.getCurrentUrl(), expectedUrl, "URL after clicking '" + menuItem + "'");
+        AssertUtils.verifyEndsWith(homePage.getCurrentUrl(), expectedUrl, "URL after clicking '" + menuItem + "'");
         // Case is ignored on purpose - the site changes the capitalisation of heading words
         AssertUtils.verifyEqualsIgnoreCase(homePage.getHeading(), expectedHeading, "heading of the '" + menuItem + "' page");
     }
@@ -112,19 +112,19 @@ public class NavigationTest extends BaseTest {
             description = "TC_NAV_006 Verify browser Back and Forward buttons across navigation pages")
     public void verifyBrowserBackAndForward() {
         header.clickNavItem("Company");
-        homePage.waitForUrlContains("/en-AE/company");
+        homePage.waitForUrlContains("/company");
         header.clickNavItem("Explore");
-        homePage.waitForUrlContains("/en-AE/explore");
+        homePage.waitForUrlContains("/explore");
 
         homePage.navigateBack();
-        homePage.waitForUrlContains("/en-AE/company");
+        homePage.waitForUrlContains("/company");
         AssertUtils.verifyTrue(companyPage.isHeadingDisplayed(), "Company page is shown after Back");
 
         homePage.navigateBack();
         AssertUtils.verifyTrue(homePage.isHeroHeadingDisplayed(), "home page is shown after the second Back");
 
         homePage.navigateForward();
-        homePage.waitForUrlContains("/en-AE/company");
+        homePage.waitForUrlContains("/company");
         AssertUtils.verifyTrue(companyPage.isHeadingDisplayed(), "Company page is shown after Forward");
     }
 }

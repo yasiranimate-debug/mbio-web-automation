@@ -1,0 +1,53 @@
+name: UI Tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      suite:
+        description: "TestNG suite file to run"
+        required: true
+        default: "smoke.xml"
+        type: choice
+        options:
+          - smoke.xml
+          - testng.xml
+
+jobs:
+  test:
+    runs-on: ubuntu-latest            # Chrome and Firefox are already installed on GitHub runners
+
+    # The same suite runs on each browser. This is the evidence of cross-browser runs:
+    # one job, and one report, per browser.
+    strategy:
+      fail-fast: false                # a failure on one browser must not cancel the other
+      matrix:
+        browser: [chrome, firefox]
+
+    name: ${{ matrix.browser }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: Run tests (headless ${{ matrix.browser }})
+        run: >
+          mvn -B clean test
+          -Dsuite=${{ github.event.inputs.suite || 'smoke.xml' }}
+          -Dheadless=true
+          -Dbrowser=${{ matrix.browser }}
+
+      - name: Upload Extent report
+        if: always()                  # upload the report even when tests fail
+        uses: actions/upload-artifact@v4
+        with:
+          name: extent-report-${{ matrix.browser }}
+          path: reports/

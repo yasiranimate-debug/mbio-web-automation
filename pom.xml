@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.mbio</groupId>
+    <artifactId>mbio-automation</artifactId>
+    <version>1.0.0</version>
+    <name>mb.io Web UI Automation Framework</name>
+
+    <properties>
+        <maven.compiler.release>21</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <selenium.version>4.49.0</selenium.version>
+        <testng.version>7.12.0</testng.version>
+        <extentreports.version>5.1.2</extentreports.version>
+        <poi.version>5.5.1</poi.version>
+        <restassured.version>6.0.1</restassured.version>
+
+        <!-- Suite to run. Override with: mvn test -Dsuite=smoke.xml -->
+        <suite>testng.xml</suite>
+    </properties>
+
+    <dependencies>
+        <!-- Browser automation -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+
+        <!-- Test runner and assertions -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+        </dependency>
+
+        <!-- HTML report with steps and screenshots -->
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>${extentreports.version}</version>
+            <exclusions>
+                <!-- ExtentReports brings an old Lombok (1.18.26). It is only needed to build ExtentReports itself.
+                     On Java 21+ that version crashes the IntelliJ compiler with "TypeTag :: UNKNOWN". -->
+                <exclusion>
+                    <groupId>org.projectlombok</groupId>
+                    <artifactId>lombok</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Read test data from Excel -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+
+        <!-- API checks -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${restassured.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.14.0</version>
+                <configuration>
+                    <!-- The framework uses no annotation processors, so turn them off (Maven and IntelliJ) -->
+                    <proc>none</proc>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.3</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${suite}</suiteXmlFile>
+                    </suiteXmlFiles>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

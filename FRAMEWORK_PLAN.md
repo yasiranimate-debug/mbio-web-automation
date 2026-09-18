@@ -305,15 +305,16 @@ being logged out.
 |---|---|---|
 | Navigation & Layout | TC_NAV_001 – 006 | 6 |
 | Trading Functionality | TC_TRD_001 – 008, 014 | 9 |
-| Content & Links | TC_CNT_001, 005 – 014 | 11 |
+| Content & Links | TC_CNT_001, 005 – 015 | 12 |
 | Negative / Edge Cases | TC_NEG_001 – 004, 012 | 6 |
 | API status (bonus) | TC_API_001 | 1 |
-| **Total** | | **33 methods → 57 runs** |
+| **Total** | | **34 methods → 58 runs** |
 
-The difference is the data-driven tests, which run once per Excel row. `mvn clean test` executes **56** of
-the 57 - the known defect below is excluded by the `known-issue` group. The smoke group is 37 runs.
+The difference is the data-driven tests, which run once per Excel row. `mvn clean test` executes **57** of
+the 58 - the known defect below is excluded by the `known-issue` group. The smoke group is 37 runs.
 
-Last full run: 56 tests, 0 failures, on Chrome 153 and on Firefox 156 (18 September 2026).
+Last full run: 57 tests, 0 failures, run three times on each of Chrome 153 and Firefox 156
+(18 September 2026) - six runs, no failures and no flakes.
 
 Groups: `smoke` and `regression` say **when** a test runs; `navigation`, `trading`, `content`, `negative`
 and `api` say **what** it covers. Every test carries exactly one of the second kind, so the category totals
@@ -341,6 +342,12 @@ in the report add up to the number of tests that ran.
   expected `/en-AE`. URLs are therefore matched on the part after the locale - `.../company` rather than the
   whole address - and the page status test follows redirects unless the redirect itself is what it checks.
   The suite now runs from any country, which is what makes CI meaningful.
+* **The page title lags behind the content on in-app navigation.** Reaching the Company page by clicking
+  the navigation is a client side route change: the heading renders while `document.title` is still the
+  previous page's. On a CI runner it had not updated after a 15 second wait, and the same test passed on the
+  runs either side of it. The title is therefore checked in TC_CNT_015, after the page is opened directly,
+  where the title arrives with the document. Minor, but it is a real defect - a stale title affects search
+  engines and screen readers.
 * **Heading capitalisation is not stable.** The Blog page heading was read as "Blog and News" at 17:40 and
   "Blog and news" at 17:51 on 17 September 2026 - two runs 11 minutes apart. Page headings are therefore
   compared with `AssertUtils.verifyEqualsIgnoreCase`: the words must match exactly, only upper / lower case

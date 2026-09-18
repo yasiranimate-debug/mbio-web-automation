@@ -55,8 +55,8 @@ Committed in [`docs/sample-reports/`](docs/sample-reports/):
 
 | Report | Browser | Suite | Result |
 |---|---|---|---|
-| [ExtentReport-chrome.html](docs/sample-reports/ExtentReport-chrome.html) | Chrome 153 | testng.xml (full) | 56 run, 0 failed - 18 Sep 2026 |
-| [ExtentReport-firefox.html](docs/sample-reports/ExtentReport-firefox.html) | Firefox 156 | testng.xml (full) | 56 run, 0 failed - 18 Sep 2026 |
+| [ExtentReport-chrome.html](docs/sample-reports/ExtentReport-chrome.html) | Chrome 153 | testng.xml (full) | 57 run, 0 failed - 18 Sep 2026 |
+| [ExtentReport-firefox.html](docs/sample-reports/ExtentReport-firefox.html) | Firefox 156 | testng.xml (full) | 57 run, 0 failed - 18 Sep 2026 |
 
 GitHub shows HTML as source and will not preview a file this size, so use **Download raw file** and open it
 in a browser, or clone the repository and open it from there.
@@ -66,11 +66,12 @@ browser and uploads `extent-report-chrome` and `extent-report-firefox` as artifa
 
 ## What is covered
 
-33 test methods, **57 test runs** (data-driven tests run once per row of the Excel file).
-`mvn clean test` runs **56** of them - the 57th is the known defect below, excluded by the `known-issue`
+34 test methods, **58 test runs** (data-driven tests run once per row of the Excel file).
+`mvn clean test` runs **57** of them - the 58th is the known defect below, excluded by the `known-issue`
 group so the suite stays green. The smoke suite is 37 runs.
 
-Last full run: **56 tests, 0 failures** on Chrome 153 and on Firefox 156 (18 Sep 2026).
+Last full run: **57 tests, 0 failures**, run three times on each of Chrome 153 and Firefox 156
+(18 Sep 2026) - six runs, no failures and no flakes.
 
 | Assignment requirement | Tests |
 |---|---|
@@ -82,7 +83,7 @@ Last full run: **56 tests, 0 failures** on Chrome 153 and on Firefox 156 (18 Sep
 | Pair entries contain expected data fields | TC_TRD_006 |
 | Marketing banners render in the expected region | TC_CNT_001 |
 | App Store / Google Play links resolve | TC_CNT_005, TC_CNT_006, TC_CNT_007, TC_CNT_008 |
-| About Us > Why MultiBank renders components | TC_CNT_009 … TC_CNT_014 |
+| About Us > Why MultiBank renders components | TC_CNT_009 … TC_CNT_015 |
 | Negative – invalid route handling | TC_NEG_001, TC_NEG_002, TC_NEG_012 |
 | Negative – broken link detection | TC_NEG_003, TC_NEG_004 |
 | Bonus – API / network validation | TC_API_001, TC_TRD_007, TC_TRD_008, TC_TRD_014, TC_CNT_006, TC_CNT_007 |

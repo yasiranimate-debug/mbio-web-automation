@@ -90,15 +90,6 @@ public class BasePage {
         }
     }
 
-    public void waitForTitleContains(String text) {
-        try {
-            wait.until(ExpectedConditions.titleContains(text));
-        } catch (Exception e) {
-            ExtentLogger.fail("Page title did not contain '" + text + "' within timeout. Current title: " + driver.getTitle());
-            throw new RuntimeException("Page title did not contain '" + text + "'", e);
-        }
-    }
-
     /** The URL is only ever read to check it, and the check logs it, so nothing is logged here. */
     public String getCurrentUrl() {
         return driver.getCurrentUrl();

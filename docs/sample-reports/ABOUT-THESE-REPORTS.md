@@ -12,8 +12,8 @@ Every screenshot is embedded in the HTML as Base64, which is why each file is ar
 
 | File | Browser | Suite | Runs | Result |
 |---|---|---|---|---|
-| `ExtentReport-chrome.html` | Chrome 153 | testng.xml | 56 | 56 passed, 0 failed - 18 Sep 2026 |
-| `ExtentReport-firefox.html` | Firefox 156 | testng.xml | 56 | 56 passed, 0 failed - 18 Sep 2026 |
+| `ExtentReport-chrome.html` | Chrome 153 | testng.xml | 57 | 57 passed, 0 failed - 18 Sep 2026 |
+| `ExtentReport-firefox.html` | Firefox 156 | testng.xml | 57 | 57 passed, 0 failed - 18 Sep 2026 |
 
 GitHub shows HTML files as source and will not preview a file this large, so download the file and open
 it in a browser.

@@ -308,12 +308,12 @@ being logged out.
 | Content & Links | TC_CNT_001, 005 – 014 | 11 |
 | Negative / Edge Cases | TC_NEG_001 – 004, 012 | 6 |
 | API status (bonus) | TC_API_001 | 1 |
-| **Total** | | **33 methods → 55 runs** |
+| **Total** | | **33 methods → 57 runs** |
 
-The difference is the data-driven tests, which run once per Excel row. `mvn clean test` executes **54** of
-the 55 - the known defect below is excluded by the `known-issue` group. The smoke group is 37 runs.
+The difference is the data-driven tests, which run once per Excel row. `mvn clean test` executes **56** of
+the 57 - the known defect below is excluded by the `known-issue` group. The smoke group is 37 runs.
 
-Last full run: 54 tests, 0 failures, 3 min 53 s (Chrome, 17 September 2026).
+Last full run: 56 tests, 0 failures, on Chrome 153 and on Firefox 156 (18 September 2026).
 
 Groups: `smoke` and `regression` say **when** a test runs; `navigation`, `trading`, `content`, `negative`
 and `api` say **what** it covers. Every test carries exactly one of the second kind, so the category totals

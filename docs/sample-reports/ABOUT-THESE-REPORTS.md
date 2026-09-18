@@ -6,13 +6,14 @@ The project README is in the root of the repository.
 Evidence of test runs, kept in git. `reports/` holds generated output and is not committed, so the
 reports kept as evidence are copied here.
 
-These are **smoke suite** reports (37 runs). They are committed rather than the full-suite reports because
-every screenshot is embedded in the HTML as Base64, which makes a full-suite report about 14 MB.
-The full suite (54 runs) is produced by CI - see below.
+These are **full suite** reports (`testng.xml`), one per browser. They are the full suite rather than smoke
+because CI only runs the smoke suite - so these are the only evidence that the regression-only tests pass.
+Every screenshot is embedded in the HTML as Base64, which is why each file is around 15 MB.
 
 | File | Browser | Suite | Runs | Result |
 |---|---|---|---|---|
-| `ExtentReport-chrome.html` | Chrome 152 | smoke.xml | 37 | 37 passed, 0 failed - 17 Sep 2026 |
+| `ExtentReport-chrome.html` | Chrome 153 | testng.xml | 56 | 56 passed, 0 failed - 18 Sep 2026 |
+| `ExtentReport-firefox.html` | Firefox 156 | testng.xml | 56 | 56 passed, 0 failed - 18 Sep 2026 |
 
 GitHub shows HTML files as source and will not preview a file this large, so download the file and open
 it in a browser.

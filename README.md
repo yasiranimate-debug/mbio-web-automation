@@ -43,7 +43,8 @@ Committed in [`docs/sample-reports/`](docs/sample-reports/):
 
 | Report | Browser | Suite | Result |
 |---|---|---|---|
-| [ExtentReport-chrome.html](docs/sample-reports/ExtentReport-chrome.html) | Chrome 152 | smoke.xml | 37 run, 0 failed - 17 Sep 2026 |
+| [ExtentReport-chrome.html](docs/sample-reports/ExtentReport-chrome.html) | Chrome 153 | testng.xml (full) | 56 run, 0 failed - 18 Sep 2026 |
+| [ExtentReport-firefox.html](docs/sample-reports/ExtentReport-firefox.html) | Firefox 156 | testng.xml (full) | 56 run, 0 failed - 18 Sep 2026 |
 
 GitHub shows HTML as source and will not preview a file this size, so use **Download raw file** and open it
 in a browser, or clone the repository and open it from there.
@@ -53,11 +54,11 @@ browser and uploads `extent-report-chrome` and `extent-report-firefox` as artifa
 
 ## What is covered
 
-33 test methods, **55 test runs** (data-driven tests run once per row of the Excel file).
-`mvn clean test` runs **54** of them - the 55th is the known defect below, excluded by the `known-issue`
+33 test methods, **57 test runs** (data-driven tests run once per row of the Excel file).
+`mvn clean test` runs **56** of them - the 57th is the known defect below, excluded by the `known-issue`
 group so the suite stays green. The smoke suite is 37 runs.
 
-Last full run: **54 tests, 0 failures, 3 min 53 s** (Chrome, 17 Sep 2026).
+Last full run: **56 tests, 0 failures** on Chrome 153 and on Firefox 156 (18 Sep 2026).
 
 | Assignment requirement | Tests |
 |---|---|

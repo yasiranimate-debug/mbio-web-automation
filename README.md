@@ -10,6 +10,7 @@ Selenium + Java framework for the public pages of **mb.io** and **trade.mb.io**.
 | Deliverable | Where |
 |---|---|
 | Run the suite with one command | [Run it](#run-it) - `mvn clean test` |
+| **Task 2** - written responses, test plan, release readiness checklist, risk matrix | [TASK-2-QA-Strategy.pdf](TASK-2-QA-Strategy.pdf) |
 | Sample execution report, cross-browser evidence | [docs/sample-reports/](docs/sample-reports/) - Chrome and Firefox, full suite |
 | Framework and design decisions | [FRAMEWORK_PLAN.md](FRAMEWORK_PLAN.md) |
 | Assumptions and findings on the live site | [FRAMEWORK_PLAN.md](FRAMEWORK_PLAN.md#9-findings-on-the-live-site) and the *Findings & Assumptions* sheet of [MBio_Test_Cases.xlsx](MBio_Test_Cases.xlsx) |

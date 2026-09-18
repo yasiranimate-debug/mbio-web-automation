@@ -5,6 +5,17 @@ Selenium + Java framework for the public pages of **mb.io** and **trade.mb.io**.
 > **Read-only testing:** no account creation, no login, no form submission, no personal or financial data.
 > Sign in / Sign up buttons are checked by their link and redirect only.
 
+## Where everything is
+
+| Deliverable | Where |
+|---|---|
+| Run the suite with one command | [Run it](#run-it) - `mvn clean test` |
+| Sample execution report, cross-browser evidence | [docs/sample-reports/](docs/sample-reports/) - Chrome and Firefox, full suite |
+| Framework and design decisions | [FRAMEWORK_PLAN.md](FRAMEWORK_PLAN.md) |
+| Assumptions and findings on the live site | [FRAMEWORK_PLAN.md](FRAMEWORK_PLAN.md#9-findings-on-the-live-site) and the *Findings & Assumptions* sheet of [MBio_Test_Cases.xlsx](MBio_Test_Cases.xlsx) |
+| Test cases, with steps, expected results and traceability | [MBio_Test_Cases.xlsx](MBio_Test_Cases.xlsx) |
+| CI | [.github/workflows/ui-tests.yml](.github/workflows/ui-tests.yml) - full suite, per browser, on every push |
+
 ## Run it
 
 ```bash

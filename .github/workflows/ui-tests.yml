@@ -8,11 +8,11 @@ on:
       suite:
         description: "TestNG suite file to run"
         required: true
-        default: "smoke.xml"
+        default: "testng.xml"
         type: choice
         options:
-          - smoke.xml
           - testng.xml
+          - smoke.xml
 
 jobs:
   test:
@@ -38,10 +38,13 @@ jobs:
           java-version: '21'
           cache: maven
 
+      # The full suite, not smoke: smoke is 37 of the 57 runs, and the 20 it leaves out are the ones most
+      # likely to catch the live site changing - the Gainers / Losers ordering, the protected routes and
+      # most of the Why MultiBank checks. A green tick should mean the suite passes, not part of it.
       - name: Run tests (headless ${{ matrix.browser }})
         run: >
           mvn -B clean test
-          -Dsuite=${{ github.event.inputs.suite || 'smoke.xml' }}
+          -Dsuite=${{ github.event.inputs.suite || 'testng.xml' }}
           -Dheadless=true
           -Dbrowser=${{ matrix.browser }}
 

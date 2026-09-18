@@ -164,9 +164,10 @@ To add a case, add a row – no code change and no recompile.
 
 ## CI
 
-`.github/workflows/ui-tests.yml` runs the smoke suite in headless Chrome on every push and pull request.
-The full suite can be started manually from the Actions tab. Each browser's report is uploaded as its own
-artifact: `extent-report-chrome` and `extent-report-firefox`.
+`.github/workflows/ui-tests.yml` runs the full suite headless on every push and pull request, once per
+browser (Chrome and Firefox).
+A run can also be started by hand from the Actions tab, with a dropdown to pick the full suite or smoke.
+Each browser's report is uploaded as its own artifact: `extent-report-chrome` and `extent-report-firefox`.
 
 ## Findings on the live site
 

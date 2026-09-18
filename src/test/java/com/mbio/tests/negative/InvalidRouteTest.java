@@ -10,6 +10,7 @@ import com.mbio.utils.ConfigReader;
 import com.mbio.utils.ExtentLogger;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.net.URLEncoder;
@@ -23,11 +24,6 @@ public class InvalidRouteTest extends BaseTest {
     /** The trading page takes a coin symbol, e.g. /trade/BTC. A guest can open it, no login needed. */
     private static final String VALID_PAIR = "BTC";
     private static final List<String> INVALID_PAIRS = List.of("ABC", "INVALID-PAIR");
-    /**
-     * Only the first part of the path is used on purpose. For a deeper URL like /wallet/spot/overview
-     * the site sends the guest to /login?next=/wallet, so the return path would not match the route asked for.
-     */
-    private static final List<String> PROTECTED_ROUTES = List.of("/trade", "/explore", "/wallet");
 
     private NotFoundPage notFoundPage;
     private HomePage homePage;
@@ -96,17 +92,31 @@ public class InvalidRouteTest extends BaseTest {
         }
     }
 
-    @Test(groups = {"regression", "negative"},
-            description = "TC_NEG_012 Verify protected routes redirect a guest to the login page")
-    public void verifyProtectedRoutesRedirectGuestToLogin() {
-        String tradeUrl = ConfigReader.get("tradeUrl");
+    /**
+     * One route per run, so each starts in a fresh browser.
+     *
+     * The routes used to be checked in a loop inside one test. Every route after the first then started on
+     * the login page of the previous one, and in Firefox the browser sometimes stayed on that old address -
+     * the check read the previous route's URL instead of the new one. A run per route removes the carry over
+     * completely and reports each route separately.
+     */
+    @DataProvider(name = "protectedRoutes")
+    public Object[][] protectedRoutes() {
+        return new Object[][]{{"/trade"}, {"/explore"}, {"/wallet"}};
+    }
 
-        for (String route : PROTECTED_ROUTES) {
-            page.navigateTo(tradeUrl + route);
-            page.waitForUrlContains("/login");
-            String expectedNextParameter = "next=" + URLEncoder.encode(route, StandardCharsets.UTF_8);
-            AssertUtils.verifyContains(page.getCurrentUrl(), expectedNextParameter, "login URL for " + route);
-        }
+    @Test(dataProvider = "protectedRoutes",
+            groups = {"regression", "negative"},
+            description = "TC_NEG_012 Verify a protected route redirects a guest to the login page")
+    public void verifyProtectedRouteRedirectsGuestToLogin(String route) {
+        String expectedNextParameter = "next=" + URLEncoder.encode(route, StandardCharsets.UTF_8);
+
+        page.navigateTo(ConfigReader.get("tradeUrl") + route);
+        // Waiting for the full "next" value, not just "/login", so the check cannot pass on a login
+        // address that was already open
+        page.waitForUrlContains(expectedNextParameter);
+
+        AssertUtils.verifyContains(page.getCurrentUrl(), expectedNextParameter, "login URL for " + route);
         ExtentLogger.info("No credentials entered on the login page (read-only test)");
     }
 }

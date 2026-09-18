@@ -80,10 +80,10 @@ public class BasePage {
         }
     }
 
+    /** Waits for the URL. Nothing is logged when it succeeds - the check that follows reports the URL. */
     public void waitForUrlContains(String text) {
         try {
             wait.until(ExpectedConditions.urlContains(text));
-            ExtentLogger.pass("Page URL contains '" + text + "'");
         } catch (Exception e) {
             ExtentLogger.fail("URL did not contain '" + text + "' within timeout. Current URL: " + driver.getCurrentUrl());
             throw new RuntimeException("URL did not contain '" + text + "'", e);
@@ -93,17 +93,15 @@ public class BasePage {
     public void waitForTitleContains(String text) {
         try {
             wait.until(ExpectedConditions.titleContains(text));
-            ExtentLogger.pass("Page title contains '" + text + "'");
         } catch (Exception e) {
             ExtentLogger.fail("Page title did not contain '" + text + "' within timeout. Current title: " + driver.getTitle());
             throw new RuntimeException("Page title did not contain '" + text + "'", e);
         }
     }
 
+    /** The URL is only ever read to check it, and the check logs it, so nothing is logged here. */
     public String getCurrentUrl() {
-        String url = driver.getCurrentUrl();
-        ExtentLogger.info("Current URL : " + url);
-        return url;
+        return driver.getCurrentUrl();
     }
 
     public String getPageTitle() {

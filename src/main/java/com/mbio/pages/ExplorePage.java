@@ -67,9 +67,6 @@ public class ExplorePage extends BasePage {
     }
 
 
-
-
-
     public void clickSpotMarketTab(String tabName) {
         scrollIntoView(spotMarketHeading, "'Spot market' section");
         waitForFullList();       // the page is ready, so clicking the tab really switches the list

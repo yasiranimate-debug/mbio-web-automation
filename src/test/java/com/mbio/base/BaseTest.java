@@ -3,6 +3,7 @@ package com.mbio.base;
 import com.mbio.listeners.TestListener;
 import com.mbio.utils.DriverFactory;
 import org.openqa.selenium.WebDriver;
+import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -22,9 +23,10 @@ public class BaseTest {
      * while opening the start page belongs to this test.
      */
     @BeforeMethod(alwaysRun = true)
-    public void setUp(ITestResult result) {
+    public void setUp(ITestResult result, ITestContext context) {
         TestListener.createExtentTest(result);
-        DriverFactory.initDriver();
+        String browser = context.getCurrentXmlTest().getParameter("browser");
+        DriverFactory.initDriver(browser);
     }
 
     @AfterMethod(alwaysRun = true)

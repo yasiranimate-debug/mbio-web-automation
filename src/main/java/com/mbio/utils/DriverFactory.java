@@ -30,7 +30,18 @@ public final class DriverFactory {
 
     /** Opens a desktop browser using browser, headless and window size from config.properties. */
     public static WebDriver initDriver() {
-        String browser = ConfigReader.get("browser").toLowerCase();
+        return initDriver(null);
+    }
+
+    /**
+     * Opens a desktop browser using headless and window size from config.properties.
+     * browserOverride wins over config.properties when given, e.g. the "browser" parameter of a testng.xml <test>.
+     */
+    public static WebDriver initDriver(String browserOverride) {
+        String browser = (browserOverride == null || browserOverride.isBlank())
+                ? ConfigReader.get("browser")
+                : browserOverride;
+        browser = browser.toLowerCase();
         boolean headless = ConfigReader.getBoolean("headless");
 
         WebDriver driver;
